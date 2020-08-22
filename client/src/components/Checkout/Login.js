@@ -1,6 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
-import Button from '../Button/Button';
+import React from "react"
+import styled from "styled-components"
+import { useMutation } from "react-apollo"
+import Button from "../Button/Button"
+import { LOGIN_USER } from "../../constans"
 
 const LoginWrapper = styled.div`
   display: flex;
@@ -8,7 +10,7 @@ const LoginWrapper = styled.div`
   flex-direction: column;
   width: 30%;
   margin: 2% auto;
-`;
+`
 
 const TextInput = styled.input`
   padding: 18px;
@@ -20,27 +22,46 @@ const TextInput = styled.input`
   background-color: #fff;
   font-size: 16px;
   margin-bottom: 10px;
-`;
+`
 
-const Login = () => {
-  const [userName, setUserName] = React.useState('');
-  const [password, setPassword] = React.useState('');
+const Login = ({ history }) => {
+  const [loginUser] = useMutation(LOGIN_USER)
+  const [userName, setUserName] = React.useState("")
+  const [password, setPassword] = React.useState("")
 
   return (
     <LoginWrapper>
       <TextInput
-        onChange={e => setUserName(e.target.value)}
+        onChange={(e) => setUserName(e.target.value)}
         value={userName}
-        placeholder='Your username'
+        placeholder="Your username"
+        type="text"
       />
       <TextInput
-        onChange={e => setPassword(e.target.value)}
+        onChange={(e) => setPassword(e.target.value)}
         value={password}
-        placeholder='Your password'
+        placeholder="Your password"
+        type="password"
       />
-      <Button color='royalBlue'>Login</Button>
-    </LoginWrapper>
-  );
-};
+      <Button
+        color="royalBlue"
+        onClick={async () => {
+          const { data } = await loginUser({
+            variables: { userName, password },
+          })
 
-export default Login;
+          if (data.loginUser && data.loginUser.token) {
+            sessionStorage.setItem("token", data.loginUser.token)
+            return history.push("/checkout")
+          } else {
+            alert("Please provide (valid) authentication details")
+          }
+        }}
+      >
+        Login
+      </Button>
+    </LoginWrapper>
+  )
+}
+
+export default Login
