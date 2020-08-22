@@ -2,7 +2,7 @@ import gql from "graphql-tag"
 
 export const ADD_TO_CART = gql`
   mutation addToCard($productId: Int!) {
-    addToCard(input: { productId: $productId }) {
+    addToCart(input: { productId: $productId }) {
       total
     }
   }
