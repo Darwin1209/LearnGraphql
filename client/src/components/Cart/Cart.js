@@ -1,24 +1,11 @@
 import React from "react"
 import styled from "styled-components"
 import { Query } from "react-apollo"
-import gql from "graphql-tag"
 
 import SubHeader from "../Header/SubHeader"
 import ProductItem from "../Products/ProductItem"
 import Totals from "./Totals"
-
-const GET_CART = gql`
-  query getCart {
-    cart {
-      total
-      products {
-        id
-        title
-        thumbnail
-      }
-    }
-  }
-`
+import { GET_CART } from '../../constans'
 
 const CartWrapper = styled.div`
   display: flex;
