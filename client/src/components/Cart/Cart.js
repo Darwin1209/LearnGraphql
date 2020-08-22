@@ -49,13 +49,4 @@ const Cart = ({ match, history }) => (
   </>
 )
 
-Cart.defaultProps = {
-  loading: false,
-  erorr: "",
-  cart: {
-    products: [],
-    total: 0,
-  },
-}
-
 export default Cart

@@ -3,7 +3,8 @@ import styled from "styled-components"
 import { Query } from "react-apollo"
 import SubHeader from "../Header/SubHeader"
 import ProductItem from "./ProductItem"
-import { GET_PRODUCTS } from "../../constans"
+import Filters from "./Filters"
+import { GET_PRODUCTS, GET_LIMIT } from "../../constans"
 
 const ProductItemsWrapper = styled.div`
   display: flex;
@@ -27,22 +28,32 @@ const Products = ({ match, history }) => {
           goToCart={() => history.push("/cart")}
         />
       )}
-      <Query query={GET_PRODUCTS}>
-        {({ loading, error, data }) => {
-          console.log(data)
+      <Query query={GET_LIMIT}>
+        {({ data }) => (
+          <>
+            <Filters limit={parseInt(data.limit)} />
+            <Query
+              query={GET_PRODUCTS}
+              variables={{ limit: parseInt(data.limit) }}
+            >
+              {({ loading, error, data }) => {
+                console.log(data)
 
-          if (loading || error) {
-            return <Alert>{loading ? "Loading..." : error.message}</Alert>
-          }
-          return (
-            <ProductItemsWrapper>
-              {data.products &&
-                data.products.map((product) => (
-                  <ProductItem key={product.id} data={product} />
-                ))}
-            </ProductItemsWrapper>
-          )
-        }}
+                if (loading || error) {
+                  return <Alert>{loading ? "Loading..." : error.message}</Alert>
+                }
+                return (
+                  <ProductItemsWrapper>
+                    {data.products &&
+                      data.products.map((product) => (
+                        <ProductItem key={product.id} data={product} />
+                      ))}
+                  </ProductItemsWrapper>
+                )
+              }}
+            </Query>
+          </>
+        )}
       </Query>
     </>
   )

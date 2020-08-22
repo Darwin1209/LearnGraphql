@@ -29,9 +29,15 @@ export const GET_CART = gql`
   }
 `
 
+export const GET_LIMIT = gql`
+  query getLimit {
+    limit @client
+  }
+`
+
 export const GET_PRODUCTS = gql`
-  query getProducts {
-    products {
+  query getProducts($limit: Int) {
+    products(limit: $limit) {
       id
       title
       thumbnail
