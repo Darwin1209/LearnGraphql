@@ -28,3 +28,13 @@ export const GET_CART = gql`
     }
   }
 `
+
+export const GET_PRODUCTS = gql`
+  query getProducts {
+    products {
+      id
+      title
+      thumbnail
+    }
+  }
+`

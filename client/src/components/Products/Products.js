@@ -1,19 +1,9 @@
 import React from "react"
 import styled from "styled-components"
 import { Query } from "react-apollo"
-import gql from "graphql-tag"
 import SubHeader from "../Header/SubHeader"
 import ProductItem from "./ProductItem"
-
-const GET_PRODUCTS = gql`
-  query getProducts {
-    products {
-      id
-      title
-      thumbnail
-    }
-  }
-`
+import { GET_PRODUCTS } from "../../constans"
 
 const ProductItemsWrapper = styled.div`
   display: flex;
