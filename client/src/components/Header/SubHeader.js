@@ -1,14 +1,14 @@
-import React from 'react';
-import styled from 'styled-components';
-import Button from '../Button/Button';
-import CartButton from '../Cart/CartButton';
+import React from "react"
+import styled from "styled-components"
+import Button from "../Button/Button"
+import CartButton from "../Cart/CartButton"
 
 const SubHeaderWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
   background: cornflowerBlue;
-`;
+`
 
 const Title = styled.h2`
   text-align: center;
@@ -21,11 +21,11 @@ const Title = styled.h2`
   &:last-child {
     margin-right: 20%;
   }
-`;
+`
 
 const SubHeaderButton = styled(Button)`
   margin: 10px 5%;
-`;
+`
 
 const SubHeader = ({ goBack, title, goToCart = false }) => (
   <SubHeaderWrapper>
@@ -35,6 +35,6 @@ const SubHeader = ({ goBack, title, goToCart = false }) => (
     <Title>{title}</Title>
     {goToCart && <CartButton onClick={goToCart} />}
   </SubHeaderWrapper>
-);
+)
 
-export default SubHeader;
+export default SubHeader
